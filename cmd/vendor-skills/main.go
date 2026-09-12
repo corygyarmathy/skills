@@ -343,8 +343,10 @@ func copyTree(src, dst string) error {
 		if err != nil {
 			return err
 		}
-		// The mode is carried across because at least one skill ships an
-		// executable template script, and a template nobody can run is not one.
+		// Carry the source mode rather than choosing one: a skill that ships
+		// an executable helper should arrive executable. Nothing does today,
+		// which is exactly why picking 0644 here would go unnoticed until one
+		// did.
 		return os.WriteFile(target, b, info.Mode().Perm())
 	})
 }
