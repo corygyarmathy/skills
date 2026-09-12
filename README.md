@@ -27,19 +27,24 @@ An improvement made there is adopted by reading it and deciding.
 
 A consumer keeps a committed copy of the skills it uses, so that a fresh clone,
 a CI runner or an unattended agent on a machine that has never seen this
-repository still has them. `bin/vendor-skills` maintains that copy against a
-pinned commit recorded in the consumer's `skills-lock.json`:
+repository still has them. `cmd/vendor-skills` maintains that copy against a
+commit pinned in the consumer's `skills-lock.json`, and is run straight from the
+module, so a consumer carries no copy of the tool itself:
 
 ```bash
-scripts/sync-skills.sh verify        # do the vendored copies match the lock?
-scripts/sync-skills.sh pull          # re-vendor at the pinned rev
-scripts/sync-skills.sh pull --rev master
-scripts/sync-skills.sh pull --add diagnosing-bugs
+go run github.com/corygyarmathy/skills/cmd/vendor-skills@latest verify
+go run github.com/corygyarmathy/skills/cmd/vendor-skills@latest pull
+go run github.com/corygyarmathy/skills/cmd/vendor-skills@latest pull --rev master
+go run github.com/corygyarmathy/skills/cmd/vendor-skills@latest pull --add diagnosing-bugs
 ```
 
-Copy `bin/vendor-skills` into the consumer as `scripts/sync-skills.sh`. It
-carries its own hash and will tell you when this repository's copy has moved
-ahead of it; it will not overwrite itself behind your back.
+`verify` exits non-zero on drift, so it is usable as a CI check without parsing
+its output.
+
+The tool is deliberately not pinned by the lock file. What has to be
+reproducible is the vendored content, and that is pinned by commit and checked
+by hash - so a tool that wrote the wrong thing is caught by the next `verify`
+rather than trusted.
 
 ## Editing a skill
 
