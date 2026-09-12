@@ -114,18 +114,18 @@ pull() {
 		esac
 	done
 
-	local tmp
-	tmp="$(mktemp -d)"
-	trap 'rm -rf "$tmp"' EXIT
+	# Not local: the EXIT trap fires after this function's scope is gone.
+	checkout="$(mktemp -d)"
+	trap 'rm -rf "$checkout"' EXIT
 
-	git clone --quiet "$source_url" "$tmp/src"
-	git -C "$tmp/src" checkout --quiet "$rev"
-	rev="$(git -C "$tmp/src" rev-parse HEAD)"
+	git clone --quiet "$source_url" "$checkout/src"
+	git -C "$checkout/src" checkout --quiet "$rev"
+	rev="$(git -C "$checkout/src" rev-parse HEAD)"
 
 	local names
 	names="$(skill_names)"
 	if [ -n "$add" ]; then
-		[ -d "$tmp/src/$source_prefix/$add" ] || die "no skill '$add' at $rev"
+		[ -d "$checkout/src/$source_prefix/$add" ] || die "no skill '$add' at $rev"
 		names="$(printf '%s\n%s\n' "$names" "$add" | LC_ALL=C sort -u)"
 	fi
 
@@ -133,9 +133,9 @@ pull() {
 	local name
 	while read -r name; do
 		[ -n "$name" ] || continue
-		[ -d "$tmp/src/$source_prefix/$name" ] || die "no skill '$name' at $rev"
+		[ -d "$checkout/src/$source_prefix/$name" ] || die "no skill '$name' at $rev"
 		rm -rf "${repo_root:?}/$vendor_path/$name"
-		cp -r "$tmp/src/$source_prefix/$name" "$repo_root/$vendor_path/$name"
+		cp -r "$checkout/src/$source_prefix/$name" "$repo_root/$vendor_path/$name"
 		printf 'vendored  %s\n' "$name"
 	done <<<"$names"
 
@@ -153,7 +153,7 @@ pull() {
 	fi
 
 	local new script_hash
-	script_hash="$(hash_file "$tmp/src/bin/vendor-skills")"
+	script_hash="$(hash_file "$checkout/src/bin/vendor-skills")"
 	new="$(jq -n \
 		--slurpfile lock "$lock" \
 		--arg rev "$rev" \
