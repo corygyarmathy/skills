@@ -43,8 +43,8 @@ driven by [FAILURES.md](FAILURES.md).
 | `triage`                        | upstream | Move issues through a state machine of triage roles            |
 | `wayfinder`                     | upstream | Plan work too big for one session as a map of decision tickets |
 | `wizard`                        | upstream | Generate a bash script that walks a human through manual steps |
-| `setup-matt-pocock-skills`      | upstream | Configure a repo's issue tracker, labels and doc layout        |
-| `ask-matt`                      | upstream | Router: which skill or flow fits the situation                 |
+| `setup-cory-gyarmathy-skills`   | upstream | Configure a repo's issue tracker, labels and doc layout        |
+| `ask-cory`                      | upstream | Router: which skill or flow fits the situation                 |
 
 ## Productivity
 
