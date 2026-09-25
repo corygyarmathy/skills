@@ -7,20 +7,62 @@ plus whatever reference files it needs beside it. Harnesses that support skills
 (Claude Code, OpenCode) discover them per-project, which is why consuming repos
 vendor a copy rather than pointing at this one.
 
-| Skill              | For                                                                 |
-| ------------------ | ------------------------------------------------------------------- |
-| `tdd`              | The red-green loop, and what makes a test worth keeping             |
-| `code-review`      | Two-axis review of a diff: repo standards, and the originating spec |
-| `implement`        | Work a spec or ticket through `tdd` and `code-review`               |
-| `domain-modeling`  | Build and sharpen `CONTEXT.md` and the ADR record                   |
-| `codebase-design`  | Deep-module vocabulary: interface, depth, seam, adapter             |
-| `diagnosing-bugs`  | The feedback-loop-first diagnosis discipline                        |
+Each skill has a status, so it is always clear which ones are still someone
+else's thinking:
+
+- **upstream**: as imported. Works, but not yet read critically.
+- **adapted**: targeted edits on top of upstream; `git log -- skills/<name>`
+  says what and why.
+- **owned**: rewritten, and every line can be justified.
+
+Moving a skill down that list is the long-term work here, one skill at a time,
+driven by [FAILURES.md](FAILURES.md).
+
+### The main flow
+
+| Skill             | Status   | For                                                                 |
+| ----------------- | -------- | ------------------------------------------------------------------- |
+| `grill-with-docs` | upstream | Interview a plan to resolution, updating `CONTEXT.md` and ADRs      |
+| `to-spec`         | upstream | Synthesise the conversation into a spec on the issue tracker        |
+| `to-tickets`      | upstream | Break a spec into tracer-bullet tickets with blocking edges         |
+| `implement`       | upstream | Work a spec or ticket through `tdd` and `code-review`               |
+| `code-review`     | adapted  | Two-axis review of a diff: repo standards, and the originating spec |
+
+### Engineering
+
+| Skill                           | Status   | For                                                            |
+| ------------------------------- | -------- | -------------------------------------------------------------- |
+| `tdd`                           | upstream | The red-green loop, and what makes a test worth keeping        |
+| `diagnosing-bugs`               | adapted  | The feedback-loop-first diagnosis discipline                   |
+| `domain-modeling`               | adapted  | Build and sharpen `CONTEXT.md` and the ADR record              |
+| `codebase-design`               | upstream | Deep-module vocabulary: interface, depth, seam, adapter        |
+| `improve-codebase-architecture` | upstream | Find deepening opportunities and grill through one             |
+| `prototype`                     | upstream | Throwaway code that answers one design question                |
+| `research`                      | upstream | Answer a question from primary sources into a cited file       |
+| `resolving-merge-conflicts`     | upstream | Resolve a conflict hunk by hunk, by intent                     |
+| `triage`                        | upstream | Move issues through a state machine of triage roles            |
+| `wayfinder`                     | upstream | Plan work too big for one session as a map of decision tickets |
+| `wizard`                        | upstream | Generate a bash script that walks a human through manual steps |
+| `setup-matt-pocock-skills`      | upstream | Configure a repo's issue tracker, labels and doc layout        |
+| `ask-matt`                      | upstream | Router: which skill or flow fits the situation                 |
+
+### Productivity
+
+| Skill                | Status   | For                                                          |
+| -------------------- | -------- | ------------------------------------------------------------ |
+| `grilling`           | upstream | The interview primitive the grill skills are built on        |
+| `grill-me`           | upstream | Grilling with no repository to write into                    |
+| `writing-for-agents` | upstream | Writing skills, CLAUDE.md, and any doc an agent reads        |
+| `handoff`            | upstream | Compact a conversation into a document another agent resumes |
+| `to-questionnaire`   | upstream | Turn a decision only someone else can make into questions    |
+| `wait-what`          | upstream | Re-explain a message that did not land                       |
+| `teach`              | upstream | Multi-session teaching in a stateful workspace               |
 
 ## Provenance
 
 These began as copies from [`mattpocock/skills`](https://github.com/mattpocock/skills)
-(MIT) and are modified from there. See [NOTICE](NOTICE). It is a fork, not a
-dependency: there is no upstream sync, and no drift to detect against upstream.
+(MIT), taken at `c55ee46`, and are modified from there. See [NOTICE](NOTICE). It
+is a fork, not a dependency: there is no upstream sync, and no drift to detect against upstream.
 An improvement made there is adopted by reading it and deciding.
 
 ## Consuming this repo
