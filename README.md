@@ -3,9 +3,7 @@
 Agent skills, owned rather than installed.
 
 Each directory under `skills/` is one skill: a `SKILL.md` with YAML frontmatter,
-plus whatever reference files it needs beside it. Harnesses that support skills
-(Claude Code, OpenCode) discover them per-project, which is why consuming repos
-vendor a copy rather than pointing at this one.
+plus whatever reference files it needs beside it.
 
 Each skill has a status, so it is always clear which ones are still someone
 else's thinking:
@@ -65,7 +63,25 @@ These began as copies from [`mattpocock/skills`](https://github.com/mattpocock/s
 is a fork, not a dependency: there is no upstream sync, and no drift to detect against upstream.
 An improvement made there is adopted by reading it and deciding.
 
-## Consuming this repo
+## Using the skills
+
+While the skills are changing quickly, they are used straight from this
+checkout rather than vendored:
+
+```bash
+scripts/link-skills.sh
+```
+
+That symlinks each skill into `~/.claude/skills`, where Claude Code and
+OpenCode pick it up in every project, so an edit here is live in the next
+session. Re-run it after adding, renaming or deleting a skill.
+
+A repo that must work without this checkout on the machine vendors instead,
+as below. For now that is only `afk-agent`, whose unattended runs can't depend
+on a working copy that is mid-edit. The others move to vendoring once the
+skills settle.
+
+## Vendoring
 
 A consumer keeps a committed copy of the skills it uses, so that a fresh clone,
 a CI runner or an unattended agent on a machine that has never seen this
@@ -90,7 +106,8 @@ rather than trusted.
 
 ## Editing a skill
 
-Edit it here, commit, then `pull` in each consumer. A consumer that edits its
-vendored copy in place will be told about it by `verify` on the next run - that
-is what the per-skill hash in the lock file is for. Divergence is allowed; it
+Edit it here. A linked skill picks the change up in the next session; a
+vendoring consumer gets it once you commit and `pull` in it. A consumer that
+edits its vendored copy in place will be told about it by `verify` on the next
+run - that is what the per-skill hash in the lock file is for. Divergence is allowed; it
 just isn't allowed to be silent.
