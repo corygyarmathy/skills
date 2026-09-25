@@ -18,7 +18,7 @@ else's thinking:
 Moving a skill down that list is the long-term work here, one skill at a time,
 driven by [FAILURES.md](FAILURES.md).
 
-### The main flow
+## The main flow
 
 | Skill             | Status   | For                                                                 |
 | ----------------- | -------- | ------------------------------------------------------------------- |
@@ -28,7 +28,7 @@ driven by [FAILURES.md](FAILURES.md).
 | `implement`       | upstream | Work a spec or ticket through `tdd` and `code-review`               |
 | `code-review`     | adapted  | Two-axis review of a diff: repo standards, and the originating spec |
 
-### Engineering
+## Engineering
 
 | Skill                           | Status   | For                                                            |
 | ------------------------------- | -------- | -------------------------------------------------------------- |
@@ -46,7 +46,7 @@ driven by [FAILURES.md](FAILURES.md).
 | `setup-matt-pocock-skills`      | upstream | Configure a repo's issue tracker, labels and doc layout        |
 | `ask-matt`                      | upstream | Router: which skill or flow fits the situation                 |
 
-### Productivity
+## Productivity
 
 | Skill                | Status   | For                                                          |
 | -------------------- | -------- | ------------------------------------------------------------ |

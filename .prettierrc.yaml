@@ -1,0 +1,8 @@
+# Mirrors the Markdown override in corygyarmathy/dotfiles: markdownlint's
+# MD007 wants 4-space list indents and prettier defaults to 2, so without this
+# the two reformat each other's output on every save. Everything else is
+# prettier's defaults.
+overrides:
+  - files: "*.md"
+    options:
+      tabWidth: 4
