@@ -18,13 +18,13 @@ driven by [FAILURES.md](FAILURES.md).
 
 ## The main flow
 
-| Skill             | Status   | For                                                                 |
-| ----------------- | -------- | ------------------------------------------------------------------- |
-| `grill-with-docs` | upstream | Interview a plan to resolution, updating `CONTEXT.md` and ADRs      |
-| `to-spec`         | adapted  | Synthesise the conversation into a spec on the issue tracker        |
-| `to-tickets`      | adapted  | Break a spec into tracer-bullet tickets with blocking edges         |
-| `implement`       | upstream | Work a spec or ticket through `tdd` and `code-review`               |
-| `code-review`     | adapted  | Two-axis review of a diff: repo standards, and the originating spec |
+| Skill               | Status   | For                                                                |
+| ------------------- | -------- | ------------------------------------------------------------------ |
+| `grill-with-docs`   | upstream | Interview a plan to resolution, updating `CONTEXT.md` and ADRs     |
+| `to-spec`           | adapted  | Synthesise the conversation into a spec on the issue tracker       |
+| `to-tickets`        | adapted  | Break a spec into tracer-bullet tickets with blocking edges        |
+| `implement`         | adapted  | Work a spec or ticket through `tdd`, then commit it for review     |
+| `reviewing-changes` | adapted  | Four-axis review of a diff: standards, spec, correctness, approach |
 
 ## Engineering
 
