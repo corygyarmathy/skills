@@ -22,23 +22,27 @@ Check with the user that these seams match their expectations.
 
 ## Problem Statement
 
-The problem that the user is facing, from the user's perspective.
+The problem being solved, from the perspective of whoever meets it: an end user, an operator, a calling service, a developer using an API.
 
 ## Solution
 
-The solution to the problem, from the user's perspective.
+The solution to the problem, from that same perspective.
 
-## User Stories
+## Behaviour
 
-A LONG, numbered list of user stories. Each user story should be in the format of:
+A LONG, numbered list of the behaviours the finished work must exhibit. Each one is observable from outside, at the seams agreed in step 2, so a test there could check it. Phrase each as a contract:
 
-1. As an <actor>, I want a <feature>, so that <benefit>
+1. When <trigger or input>, <actor or component> <observable outcome>
 
-<user-story-example>
-1. As a mobile bank customer, I want to see balance on my accounts, so that I can make better informed decisions about my spending
-</user-story-example>
+<behaviour-example>
+1. When a job's lease expires before it reports completion, the scheduler returns it to the queue with its attempt count incremented
+2. When a job has exhausted its retry budget, the scheduler marks it failed and does not requeue it
+3. When a customer opens their accounts page, it shows the current balance of each account
+</behaviour-example>
 
-This list of user stories should be extremely extensive and cover all aspects of the feature.
+Give failure and edge cases the same coverage as the happy path: invalid input, partial failure, concurrent callers, a restart mid-operation. A property that must hold at all times rather than in response to a trigger is an **invariant**; list those at the end ("A job is never leased to two workers at once").
+
+This list should be extremely extensive and cover all aspects of the feature.
 
 ## Implementation Decisions
 

@@ -23,8 +23,8 @@ driven by [FAILURES.md](FAILURES.md).
 | Skill             | Status   | For                                                                 |
 | ----------------- | -------- | ------------------------------------------------------------------- |
 | `grill-with-docs` | upstream | Interview a plan to resolution, updating `CONTEXT.md` and ADRs      |
-| `to-spec`         | upstream | Synthesise the conversation into a spec on the issue tracker        |
-| `to-tickets`      | upstream | Break a spec into tracer-bullet tickets with blocking edges         |
+| `to-spec`         | adapted  | Synthesise the conversation into a spec on the issue tracker        |
+| `to-tickets`      | adapted  | Break a spec into tracer-bullet tickets with blocking edges         |
 | `implement`       | upstream | Work a spec or ticket through `tdd` and `code-review`               |
 | `code-review`     | adapted  | Two-axis review of a diff: repo standards, and the originating spec |
 
