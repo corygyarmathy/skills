@@ -1,7 +1,8 @@
 Every skill in this repository began as a copy of one from
 https://github.com/mattpocock/skills, MIT licensed, copyright (c) 2026
-Matt Pocock. They were taken at commit-time in September 2026 and are
-modified from that point on.
+Matt Pocock. They were taken in September 2026, all from upstream commit
+c55ee46073ed923f86ce59a5eb3b6d895095d1b7, and are modified from that point
+on.
 
 This is a fork, not an installation. There is no upstream to pull from and
 no drift to detect against: a change made here is the change, and an
