@@ -32,6 +32,7 @@ Break the work into **tracer bullet** tickets.
 - A completed slice is demoable or verifiable on its own
 - Each slice is sized to fit in a single fresh context window
 - Any prefactoring should be done first
+- A mechanical change (reformat, rename, codemod) is a ticket of its own, holding only that change, and its "What to build" names the **recipe**: the command or rewrite that produces it
 
 </vertical-slice-rules>
 
