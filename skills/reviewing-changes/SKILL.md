@@ -12,7 +12,7 @@ Four-axis review of the diff between `HEAD` and a fixed point:
 
 Each axis runs as a **parallel sub-agent** with a fresh context, then this skill aggregates their findings. Run this skill in a session that did not write the change: the reviewer that shares the author's reasoning accepts the author's justifications.
 
-The review takes a **severity floor** as input, one of the three severities below: `should-fix` by default, `blocker` when a caller asks for it, and `consider` when an interactive caller asks for it. Nothing below the floor is produced, so every finding in the report is worth reading.
+The review takes a **severity floor** as input, one of the three severities below: `should-fix` by default, `blocker` or `consider` when a caller asks for it. Nothing below the floor is produced, so every finding in the report is worth reading.
 
 This repo's issue tracker is described in `docs/agents/issue-tracker.md`. If that file is missing and a spec has to be fetched from a tracker, say so rather than guessing at a `gh` invocation - a review that cites the wrong tracker is worse than one that admits it has no spec.
 
