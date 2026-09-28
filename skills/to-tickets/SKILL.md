@@ -34,7 +34,7 @@ Break the work into **tracer bullet** tickets.
 - Split a slice that needs an "and" to describe it
 - Split a slice that mixes a refactor with behaviour: the preparatory refactor becomes its own first slice, blocking the behaviour
 - A mechanical change (reformat, rename, codemod) is a ticket of its own, holding only that change, and its "What to build" names the **recipe**: the command that reproduces it, or the transformation rule
-- A deliberately large, single-concern ticket (a wide refactor's migrate batch, a formatter run) is a **recipe ticket**: it runs past one sitting on purpose, so it is reviewed by its recipe. Its "What to build" names the recipe where it can, and states that it needs an explicit `/implement` asked for as one PR. It is published without the `ready-for-agent` label
+- A deliberately large, single-concern ticket (a wide refactor's migrate batch, a formatter run) is a **recipe ticket**: it runs past one sitting on purpose, so it is reviewed by its recipe. Its "What to build" names the recipe where it can, and states that it needs an explicit `/implement` asked for as one PR. It takes the `recipe-ticket` triage role, never `ready-for-agent`. If the repo's triage-label mapping has no `recipe-ticket` role, publish it with no role and tell the user to rerun `/setup-cory-gyarmathy-skills`. A mechanical ticket that fits one sitting still names its recipe, but it is an ordinary ticket and takes `ready-for-agent`
 
 </vertical-slice-rules>
 
@@ -49,7 +49,7 @@ Present the proposed breakdown as a numbered list. For each ticket, show:
 - **Title**: short descriptive name
 - **Blocked by**: which other tickets (if any) must complete first
 - **What it delivers**: the end-to-end behaviour this ticket makes work
-- **Recipe ticket**: if it is one, and its recipe
+- **Recipe ticket**: if it is one (runs past one sitting on purpose), and its recipe
 
 Ask the user:
 
@@ -64,7 +64,7 @@ Iterate until the user approves the breakdown.
 Publish the approved tickets. **How** depends on the tracker `/setup-cory-gyarmathy-skills` configured; the tickets are the same either way, only the shape of the blocking edges changes:
 
 - **Local files** → write one file per ticket under `.scratch/<feature-slug>/issues/<NN>-<slug>.md`, numbered from `01` in dependency order (blockers first). Each file's "Blocked by" lists the numbers/titles it depends on. Use the per-ticket file template below: one ticket per file, never a single combined file.
-- **A real issue tracker (GitHub, Linear, …)** → publish one issue per ticket in dependency order (blockers first) so each ticket's blocking edges can reference real identifiers. Use the platform's native blocking / sub-issue relationship where it has one; otherwise set each ticket's "Blocked by" to the blocking issues. Apply the `ready-for-agent` triage label to every ticket except a recipe ticket, unless instructed otherwise; the tickets are agent-grabbable by construction.
+- **A real issue tracker (GitHub, Linear, …)** → publish one issue per ticket in dependency order (blockers first) so each ticket's blocking edges can reference real identifiers. Use the platform's native blocking / sub-issue relationship where it has one; otherwise set each ticket's "Blocked by" to the blocking issues. Apply each ticket's triage role unless instructed otherwise: `ready-for-agent`, or `recipe-ticket` for a recipe ticket (see the slice rules). Every other ticket is agent-grabbable by construction.
 
 Work the **frontier**: any ticket whose blockers are all done. For a purely linear chain that means top to bottom.
 
@@ -78,7 +78,7 @@ Do NOT close or modify any parent issue.
 
 **Blocked by:** the numbers/titles of the tickets that gate this one, or "None (can start immediately)".
 
-**Status:** ready-for-agent (a recipe ticket: needs explicit `/implement`, one PR)
+**Status:** the ticket's triage role: `ready-for-agent`, or `recipe-ticket` for a recipe ticket (see the slice rules).
 
 - [ ] Acceptance criterion 1
 - [ ] Acceptance criterion 2
