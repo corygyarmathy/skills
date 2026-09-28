@@ -54,10 +54,10 @@ At a `consider` floor, the Standards axis also carries the **smell baseline** in
 
 ### 4. Fold the axes
 
-Two folds, each decided by an input. They are the only thing that changes how many sub-agents run.
+Two folds, each decided by an input. Nothing else adds a sub-agent: not a large diff, and not a sensitive path.
 
-- **Standards folds into Spec above a `consider` floor.** At `should-fix` or `blocker`, the Standards brief and the standards-source files go to the Spec sub-agent, which reports under both `## Spec` and `## Standards`. At a `consider` floor, or with no spec, Standards runs in its own sub-agent.
-- **Approach folds into Correctness below the fold cut.** Count the changed lines: non-test lines only, leaving out generated, vendored and lock files. Below the cut, no Approach sub-agent runs; the Correctness sub-agent also gets Approach's **blast radius** step and reports what it finds under `## Approach`.
+- **Standards folds into Spec above a `consider` floor.** At `should-fix` or `blocker`, the Spec sub-agent also gets the Standards brief and the standards-source files, and its brief adds: "Report these under `## Standards`, apart from your `## Spec` findings." At a `consider` floor, or with no spec, Standards runs in its own sub-agent.
+- **Approach folds into Correctness below the fold cut.** Count the changed lines: non-test lines only, leaving out generated, vendored and lock files. Below the cut, no Approach sub-agent runs; the Correctness sub-agent also gets Approach's step 2, **Blast radius**, verbatim, and its brief adds: "Report these under `## Approach`, apart from your `## Correctness` findings."
 
 ### 5. Spawn the sub-agents in parallel
 
@@ -72,15 +72,17 @@ Leave out any explanation of why the change was made the way it was. Each review
 
 Every brief ends with the same output rules: "The floor is `<floor>`: report nothing below it. Rank findings most severe first. Each finding is at most about 3 lines: its severity, `file:line`, what's wrong, and a one-line fix, with a short code suggestion when one fits. Read beyond the diff wherever judging a hunk needs it. Under 400 words; if the cap bites, drop the least severe findings."
 
+A folded sub-agent writes two headings, and the ranking and the cap apply to each one alone, so no axis is ranked against the other: its brief says "Rank findings most severe first within each heading" and "Under 400 words per heading; if the cap bites, drop that heading's least severe findings."
+
 Standards is checklist matching: when it runs in its own sub-agent, run it on a smaller, cheaper model where the harness lets you choose. The other axes need the strongest model available.
 
-**Standards** also gets the standards-source files from step 3; folded, both go to the Spec sub-agent. Brief: "Report every place the diff violates a documented standard: cite the standard (file + the rule). Skip anything tooling enforces."
+**Standards** also gets the standards-source files from step 3 (folded, see step 4). Brief: "Report every place the diff violates a documented standard: cite the standard (file + the rule). Skip anything tooling enforces."
 
 At a `consider` floor, paste [`SMELLS.md`](SMELLS.md) in full as well (the sub-agent has no other access to it), and add to the brief: "Also report any baseline smell you spot, under the baseline's rules: name it and quote the hunk."
 
 **Spec** brief: "Report (a) requirements the spec asked for that are missing or partial; (b) behaviour in the diff that wasn't asked for (scope creep); (c) requirements that look implemented but where the implementation looks wrong. Quote the spec line for each finding." Skipped when there is no spec.
 
-**Correctness** brief: "Find the ways this change produces wrong output, crashes, loses data, or breaks an existing caller: edge cases, error paths, concurrency, resource cleanup, and the invariants the surrounding code relies on. Every finding states a **failure scenario**: the inputs and state, and the wrong result they produce. A suspicion you cannot turn into a failure scenario is listed separately as a question." Folded, it also gets Approach's step 2, **Blast radius**, verbatim.
+**Correctness** brief: "Find the ways this change produces wrong output, crashes, loses data, or breaks an existing caller: edge cases, error paths, concurrency, resource cleanup, and the invariants the surrounding code relies on. Every finding states a **failure scenario**: the inputs and state, and the wrong result they produce. A suspicion you cannot turn into a failure scenario is listed separately as a question." Folded, see step 4.
 
 **Approach** brief: "Judge the approach the change takes, not its details. Work in this order:
 
