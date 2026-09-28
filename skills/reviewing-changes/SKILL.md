@@ -12,7 +12,17 @@ Four-axis review of the diff between `HEAD` and a fixed point:
 
 Each axis runs as a **parallel sub-agent** with a fresh context, then this skill aggregates their findings. Run this skill in a session that did not write the change: the reviewer that shares the author's reasoning accepts the author's justifications.
 
+The review takes a **severity floor** as input: `should-fix` by default, and an interactive caller may ask for `consider`. Nothing below the floor is produced, so every finding in the report is worth reading.
+
 This repo's issue tracker is described in `docs/agents/issue-tracker.md`. If that file is missing and a spec has to be fetched from a tracker, say so rather than guessing at a `gh` invocation - a review that cites the wrong tracker is worse than one that admits it has no spec.
+
+## Severities
+
+Each finding carries one severity, and the floor cuts between them in the same place every time:
+
+- **blocker**: produces wrong output, loses data, breaks a caller, or fails the spec. Merging it as it stands would be a mistake.
+- **should-fix**: works today, but a concrete cost follows if it merges: a missed spec case, an untested failure path, a documented standard broken, a design that makes the next change harder. The finding names that cost; a finding that can't name one is `consider`.
+- **consider**: a matter of taste or a possible improvement. Merging without it costs nothing concrete.
 
 ## Process
 
@@ -38,7 +48,7 @@ If nothing is found and a user is in the session, ask where the spec is. Otherwi
 
 Anything in the repo that documents how code should be written, such as `CODING_STANDARDS.md`, `CONTRIBUTING.md`, or `AGENTS.md`.
 
-On top of whatever the repo documents, the Standards axis always carries the **smell baseline** below: a fixed set of Fowler code smells (_Refactoring_, ch.3) that applies even when a repo documents nothing. Two rules bind it:
+At a `consider` floor, the Standards axis also carries the **smell baseline** below: a fixed set of Fowler code smells (_Refactoring_, ch.3) that applies even when a repo documents nothing. Its smells are only ever `consider`, so at a `should-fix` floor it stays out of the brief. Two rules bind it:
 
 - **The repo overrides.** A documented repo standard always wins; where it endorses something the baseline would flag, suppress the smell.
 - **Always a judgement call.** Each smell is a labelled heuristic ("possible Feature Envy"), never a hard violation. Like any standard here, skip anything tooling already enforces.
@@ -68,15 +78,18 @@ Every sub-agent prompt carries the same inputs and nothing else:
 
 - The diff command and commit list.
 - The spec, pasted verbatim or as a path to it, never as your summary of it.
+- The severity floor, with the severity definitions above.
 - The inputs specific to its axis, below.
 
 Leave out any explanation of why the change was made the way it was. Each reviewer judges the code cold; the reasons it needs are in the spec and the code. Tell each one that commit messages are the author's claims, to be checked against the code rather than taken as reasons.
 
-Every brief ends with the same output rules: "Rank findings most severe first. Give each one `file:line`, a severity (**blocker**, **should-fix**, or **consider**), and a one-line suggested fix. Read beyond the diff wherever judging a hunk needs it. Under 400 words; if the cap bites, drop the least severe findings."
+Every brief ends with the same output rules: "The floor is `<floor>`: report nothing below it. Rank findings most severe first. Each finding is at most about 3 lines: its severity, `file:line`, what's wrong, and a one-line fix, with a short code suggestion when one fits. A should-fix names the cost of merging it. Read beyond the diff wherever judging a hunk needs it. Under 400 words; if the cap bites, drop the least severe findings."
 
 Standards is checklist matching: run it on a smaller, cheaper model where the harness lets you choose. The other axes need the strongest model available.
 
-**Standards** also gets the standards-source files from step 3, **plus the smell baseline from step 3** pasted in full (the sub-agent has no other access to it). Brief: "Report (a) every place the diff violates a documented standard: cite the standard (file + the rule); and (b) any baseline smell you spot: name it and quote the hunk. Documented-standard breaches can be blockers; baseline smells are always **consider**, and a documented repo standard overrides the baseline. Skip anything tooling enforces."
+**Standards** also gets the standards-source files from step 3. Brief: "Report every place the diff violates a documented standard: cite the standard (file + the rule). Skip anything tooling enforces."
+
+At a `consider` floor, paste the smell baseline from step 3 in full as well (the sub-agent has no other access to it), and add to the brief: "Also report any baseline smell you spot: name it and quote the hunk. Baseline smells are always **consider**, and a documented repo standard overrides the baseline."
 
 **Spec** brief: "Report (a) requirements the spec asked for that are missing or partial; (b) behaviour in the diff that wasn't asked for (scope creep); (c) requirements that look implemented but where the implementation looks wrong. Quote the spec line for each finding." Skipped when there is no spec.
 
@@ -91,11 +104,13 @@ Standards is checklist matching: run it on a smaller, cheaper model where the ha
 
 ### 6. Aggregate
 
-Present the reports under `## Standards`, `## Spec`, `## Correctness` and `## Approach` headings, verbatim or lightly cleaned. Keep the axes separate: do not merge or rerank findings across them (see _Why separate axes_).
+Present the reports under `## Standards`, `## Spec`, `## Correctness` and `## Approach` headings, lightly cleaned. Keep the axes separate: do not merge or rerank findings across them (see _Why separate axes_). An axis with no findings collapses to one line under its heading.
 
-End with a one-line summary: total findings per axis, and the worst issue _within each axis_ (if any). Don't pick a single winner across axes: that's the reranking the separation exists to prevent.
+Number the findings `1…n` continuously across the whole report, so any one can be cited alone ("advisory 3"). Each keeps the about-3-line shape from the output rules; a Correctness finding's "what's wrong" is its failure scenario. After the findings, list the questions (suspicions with no failure scenario) as `Q1…Qn`.
 
-The review is advisory. Whoever acts on it fixes each finding or answers it with a rebuttal the user can see; a finding is never dropped silently.
+End with a one-line summary: total findings per axis, and the worst issue _within each axis_ (if any). Don't pick a single winner across axes: that's the reranking the separation exists to prevent. A review with nothing at or above the floor still reports, and says so, naming the floor.
+
+The review is advisory.
 
 ## Why separate axes
 
