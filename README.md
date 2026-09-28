@@ -26,6 +26,11 @@ driven by [FAILURES.md](FAILURES.md).
 | `implement`         | adapted  | Work a spec or ticket through `tdd`, then commit it for review     |
 | `reviewing-changes` | adapted  | Four-axis review of a diff: standards, spec, correctness, approach |
 
+`reviewing-changes` writes the advisory review. Beside it,
+[OPERATORS-REVIEW.md](skills/reviewing-changes/OPERATORS-REVIEW.md) is for a
+human: how the operator reads a PR and decides it. Every PR the agent opens
+links to it.
+
 ## Engineering
 
 | Skill                           | Status   | For                                                            |
