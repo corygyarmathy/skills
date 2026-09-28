@@ -1,6 +1,6 @@
 ---
 name: reviewing-changes
-description: 'Review the changes since a fixed point (commit, branch, tag, or merge-base) on four axes: Standards, Spec, Correctness, and Approach, each in its own sub-agent, reported side by side. Use when the user wants a branch, a PR, or work in progress reviewed, or asks to "review since X".'
+description: 'Review the changes since a fixed point (commit, branch, tag, or merge-base) on four axes: Standards, Spec, Correctness, and Approach, in parallel sub-agents, reported side by side. Use when the user wants a branch, a PR, or work in progress reviewed, or asks to "review since X".'
 ---
 
 Four-axis review of the diff between `HEAD` and a fixed point:
@@ -10,9 +10,11 @@ Four-axis review of the diff between `HEAD` and a fixed point:
 - **Correctness**: where does the code produce wrong output, crash, or break a caller?
 - **Approach**: is this the right way to do it, and what does it do to the rest of the codebase?
 
-Each axis runs as a **parallel sub-agent** with a fresh context, then this skill aggregates their findings. Run this skill in a session that did not write the change: the reviewer that shares the author's reasoning accepts the author's justifications.
+The axes run as **parallel sub-agents** with fresh contexts, one per axis except where step 4 folds two into one, then this skill aggregates their findings under one heading per axis. Run this skill in a session that did not write the change: the reviewer that shares the author's reasoning accepts the author's justifications.
 
 The review takes a **severity floor** as input, one of the three severities below: `should-fix` by default, `blocker` or `consider` when a caller asks for it. Nothing below the floor is produced, so every finding in the report is worth reading.
+
+It also takes a **fold cut**, a count of changed lines, default `50`. A diff below the cut is small enough to fold Approach into Correctness (step 4).
 
 This repo's issue tracker is described in `docs/agents/issue-tracker.md`. If that file is missing and a spec has to be fetched from a tracker, say so rather than guessing at a `gh` invocation - a review that cites the wrong tracker is worse than one that admits it has no spec.
 
@@ -50,9 +52,12 @@ Anything in the repo that documents how code should be written, such as `CODING_
 
 At a `consider` floor, the Standards axis also carries the **smell baseline** in [`SMELLS.md`](SMELLS.md): a fixed set of Fowler code smells that applies even when a repo documents nothing.
 
-### 4. Size the review
+### 4. Fold the axes
 
-Count the changed lines, leaving out tests, lockfiles and generated code. Under about 50, skip the Approach sub-agent and give its **blast radius** brief to the Correctness sub-agent instead; the report says Approach was folded in.
+Two folds, each decided by an input. They are the only thing that changes how many sub-agents run.
+
+- **Standards folds into Spec above a `consider` floor.** At `should-fix` or `blocker`, the Standards brief and the standards-source files go to the Spec sub-agent, which reports under both `## Spec` and `## Standards`. At a `consider` floor, or with no spec, Standards runs in its own sub-agent.
+- **Approach folds into Correctness below the fold cut.** Count the changed lines: non-test lines only, leaving out generated, vendored and lock files. Below the cut, no Approach sub-agent runs; the Correctness sub-agent also gets Approach's **blast radius** step and reports what it finds under `## Approach`.
 
 ### 5. Spawn the sub-agents in parallel
 
@@ -67,15 +72,15 @@ Leave out any explanation of why the change was made the way it was. Each review
 
 Every brief ends with the same output rules: "The floor is `<floor>`: report nothing below it. Rank findings most severe first. Each finding is at most about 3 lines: its severity, `file:line`, what's wrong, and a one-line fix, with a short code suggestion when one fits. Read beyond the diff wherever judging a hunk needs it. Under 400 words; if the cap bites, drop the least severe findings."
 
-Standards is checklist matching: run it on a smaller, cheaper model where the harness lets you choose. The other axes need the strongest model available.
+Standards is checklist matching: when it runs in its own sub-agent, run it on a smaller, cheaper model where the harness lets you choose. The other axes need the strongest model available.
 
-**Standards** also gets the standards-source files from step 3. Brief: "Report every place the diff violates a documented standard: cite the standard (file + the rule). Skip anything tooling enforces."
+**Standards** also gets the standards-source files from step 3; folded, both go to the Spec sub-agent. Brief: "Report every place the diff violates a documented standard: cite the standard (file + the rule). Skip anything tooling enforces."
 
 At a `consider` floor, paste [`SMELLS.md`](SMELLS.md) in full as well (the sub-agent has no other access to it), and add to the brief: "Also report any baseline smell you spot, under the baseline's rules: name it and quote the hunk."
 
 **Spec** brief: "Report (a) requirements the spec asked for that are missing or partial; (b) behaviour in the diff that wasn't asked for (scope creep); (c) requirements that look implemented but where the implementation looks wrong. Quote the spec line for each finding." Skipped when there is no spec.
 
-**Correctness** brief: "Find the ways this change produces wrong output, crashes, loses data, or breaks an existing caller: edge cases, error paths, concurrency, resource cleanup, and the invariants the surrounding code relies on. Every finding states a **failure scenario**: the inputs and state, and the wrong result they produce. A suspicion you cannot turn into a failure scenario is listed separately as a question."
+**Correctness** brief: "Find the ways this change produces wrong output, crashes, loses data, or breaks an existing caller: edge cases, error paths, concurrency, resource cleanup, and the invariants the surrounding code relies on. Every finding states a **failure scenario**: the inputs and state, and the wrong result they produce. A suspicion you cannot turn into a failure scenario is listed separately as a question." Folded, it also gets Approach's step 2, **Blast radius**, verbatim.
 
 **Approach** brief: "Judge the approach the change takes, not its details. Work in this order:
 
@@ -87,6 +92,8 @@ At a `consider` floor, paste [`SMELLS.md`](SMELLS.md) in full as well (the sub-a
 ### 6. Aggregate
 
 Present the reports under `## Standards`, `## Spec`, `## Correctness` and `## Approach` headings, lightly cleaned. Keep the axes separate: do not merge or rerank findings across them (see _Why separate axes_). An axis with no findings collapses to one line under its heading.
+
+Next to the scope notes (an assumed fixed point, a dirty working tree, no spec), one line names each fold from step 4 that happened, e.g. "Standards reviewed with Spec; Approach with Correctness." It tells an empty heading apart from one nobody looked at. When nothing folded, there is no such line.
 
 Number the findings `1…n` continuously across the whole report, so any one can be cited alone ("advisory 3"). Each keeps the about-3-line shape from the output rules; a Correctness finding's "what's wrong" is its failure scenario. After the findings, list the questions (suspicions with no failure scenario) as `Q1…Qn`.
 
