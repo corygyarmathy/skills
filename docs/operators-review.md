@@ -24,8 +24,8 @@ last get the least scrutiny.
 
 Style, formatting and vet are left to CI.
 
-Run the change when the diff can't show the behaviour: concurrency, CLI output, a
-NixOS option.
+Running the change is recommended when the diff can't show the behaviour:
+concurrency, CLI output, a NixOS option.
 
 A PR that touches a **sensitive path** names it under **Sensitive:** in its
 description. The matched files are read line by line, even on a recipe PR, where
@@ -38,9 +38,9 @@ exceptions and a sample.
 ## When to stop
 
 A design objection, or "this shouldn't exist", stops the reading early and sends
-the PR back. Otherwise stop once every line has been read, and decide against one
-bar: does it definitely improve code health, even if it isn't perfect? There is no
-timer.
+the PR back. Otherwise stop once every line has been read, or on a recipe PR, the
+recipe, the exceptions and the sample. Then decide against one bar: does it
+definitely improve code health, even if it isn't perfect? There is no timer.
 
 ## Your own reading first
 
@@ -55,7 +55,8 @@ resolved thread decides nothing.
 
 **Merge.** Nothing is written, and no "Approve" is needed. For points that can
 wait, merge and open a follow-up issue in your own words that names the PR it came
-from ("Reference in new issue" on a PR comment does that).
+from ("Reference in new issue" on a PR comment adds the link; replace the quoted
+text with your own).
 
 **Send-back.** The points in your own words, in either of two forms:
 
