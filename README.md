@@ -34,7 +34,7 @@ operator reads a PR and decides it.
 
 | Skill                           | Status   | For                                                            |
 | ------------------------------- | -------- | -------------------------------------------------------------- |
-| `tdd`                           | upstream | The red-green loop, and what makes a test worth keeping        |
+| `tdd`                           | adapted  | The red-green loop, and what makes a test worth keeping        |
 | `diagnosing-bugs`               | adapted  | The feedback-loop-first diagnosis discipline                   |
 | `domain-modeling`               | adapted  | Build and sharpen `CONTEXT.md` and the ADR record              |
 | `codebase-design`               | upstream | Deep-module vocabulary: interface, depth, seam, adapter        |
