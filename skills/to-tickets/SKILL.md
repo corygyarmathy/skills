@@ -48,9 +48,9 @@ A **premise** is a fact a ticket takes from outside itself and outside the code 
 
 State each premise as the fact itself, with a permalink to its source of record (a file at a commit, a comment, a tagged doc). "Maps to the flags the revise ticket defines" names where the fact will be decided, so it is not a premise. "afk-agent has no revise tier; a revision runs on implement's tier and needs (`docs/agents/revise.md` at <rev>)" is. A ticket with no premises says "None".
 
-Confirm every premise against its source now. A premise you cannot confirm becomes a question in the quiz, and stays out of the ticket until the user settles it.
+A **waiting premise** depends on what a blocker produces, not only on its order, so it can't hold until the blocker lands. State it as the outcome the blocker is expected to produce, taken from the plan or the blocker's ticket, link the blocker in place of a permalink, and mark it "confirm once <blocker> closes". A ticket with a waiting premise is published as `needs-triage`, whatever role it would otherwise carry; once the blocker closes, `/triage` confirms the premise and returns the ticket to that role. A blocker that only orders the work leaves the role as it is.
 
-Some premises hold only once a blocker lands, because they depend on what the blocker produces rather than only on its order. Mark each such premise "confirm once <blocker> closes", and publish its ticket as `needs-triage`, never `ready-for-agent`. A blocker that only orders the work leaves the role as it is.
+Confirm every other premise against its source now. One you cannot confirm becomes a question in the quiz, and stays out of the ticket until the user settles it.
 
 ### 5. Quiz the user
 
@@ -60,7 +60,7 @@ Present the proposed breakdown as a numbered list. For each ticket, show:
 - **Blocked by**: which other tickets (if any) must complete first
 - **What it delivers**: the end-to-end behaviour this ticket makes work
 - **Recipe ticket**: if it is one (runs past one sitting on purpose), and its recipe
-- **Premises**: each as its fact and source, marking any that wait on a blocker
+- **Premises**: each as its fact and source, marking any waiting premise
 
 Ask the user:
 
@@ -76,7 +76,7 @@ Iterate until the user approves the breakdown.
 Publish the approved tickets. **How** depends on the tracker `/setup-cory-gyarmathy-skills` configured; the tickets are the same either way, only the shape of the blocking edges changes:
 
 - **Local files** → write one file per ticket under `.scratch/<feature-slug>/issues/<NN>-<slug>.md`, numbered from `01` in dependency order (blockers first). Each file's "Blocked by" lists the numbers/titles it depends on. Use the per-ticket file template below: one ticket per file, never a single combined file.
-- **A real issue tracker (GitHub, Linear, …)** → publish one issue per ticket in dependency order (blockers first) so each ticket's blocking edges can reference real identifiers. Use the platform's native blocking / sub-issue relationship where it has one; otherwise set each ticket's "Blocked by" to the blocking issues. Apply each ticket's triage role unless instructed otherwise: `ready-for-agent`, `recipe-ticket` for a recipe ticket (see the slice rules), or `needs-triage` for a ticket with a premise that waits on a blocker (see step 4). A `ready-for-agent` ticket is agent-grabbable by construction.
+- **A real issue tracker (GitHub, Linear, …)** → publish one issue per ticket in dependency order (blockers first) so each ticket's blocking edges can reference real identifiers. Use the platform's native blocking / sub-issue relationship where it has one; otherwise set each ticket's "Blocked by" to the blocking issues. Apply each ticket's triage role unless instructed otherwise: `ready-for-agent`, `recipe-ticket` for a recipe ticket (see the slice rules), or `needs-triage` (see step 4). A `ready-for-agent` ticket is agent-grabbable by construction.
 
 Work the **frontier**: any ticket whose blockers are all done. For a purely linear chain that means top to bottom.
 
@@ -92,7 +92,7 @@ Do NOT close or modify any parent issue.
 
 **Blocked by:** the numbers/titles of the tickets that gate this one, or "None (can start immediately)".
 
-**Status:** the ticket's triage role: `ready-for-agent`, `recipe-ticket` for a recipe ticket (see the slice rules), or `needs-triage` for a ticket with a premise that waits on a blocker (see step 4).
+**Status:** the ticket's triage role: `ready-for-agent`, `recipe-ticket` for a recipe ticket (see the slice rules), or `needs-triage` (see step 4).
 
 - [ ] Acceptance criterion 1
 - [ ] Acceptance criterion 2
