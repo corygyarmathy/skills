@@ -65,6 +65,11 @@ text with your own).
 
 An advisory finding enters only when you cite it, one at a time: "advisory 3:
 agreed, and cover the empty case too". A citation means the latest advisory review.
+After a revision, that is the review of the revision's delta, numbered from 1
+again: "advisory 3" is finding 3 of the delta's review. A finding from an earlier
+review, on code the revision didn't touch, is not in the latest review: quote it
+in your own words rather than cite it by number, which would name a different
+finding.
 The send-back is yours: nothing should draft it for you, an interactive session
 included.
 
@@ -84,3 +89,8 @@ link in its reply) and check that each point you sent back is addressed. Re-read
 the whole PR only if the delta changed the design. Start that review after the
 revision's reply or hand-back: one begun before its push is refused (see
 **Send-back**).
+
+The revision has its own advisory review, posted after its reply. Its summary
+names a range ("Advisory review of `abc1234..def5678`") rather than one head, and
+it covers the same delta you are reading. **Your own reading first** applies to
+it unchanged: open it after you have decided.
