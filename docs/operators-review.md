@@ -68,10 +68,12 @@ agreed, and cover the empty case too". A citation means the latest advisory revi
 The send-back is yours: nothing should draft it for you, an interactive session
 included.
 
-Two send-backs are refused, each with a reply saying so, and nothing else is done:
+Three send-backs you may meet are refused, each with a reply saying so, and
+nothing else is done:
 
-- one written while a revision is in flight, after it started and before its reply or hand-back. Wait for the reply or the hand-back, then send the points again;
-- a review, or a line comment, begun on a head the PR has since left: started before a revision pushed, submitted after. The reply names the commit it was written on. Start the review again on the current head.
+- one written while a revision is in flight, after it started and before its reply or hand-back. Wait for the reply or the hand-back, then send the points again. A revision that parks posts neither, so nothing is refused: the next send-back starts a new revision from wherever the branch was left, and carries only its own points;
+- a review written on a commit that is no longer the PR's head, or with a line comment written on one: begun before a push to the branch, the revision's or anyone's, and submitted after. The whole review is refused, and the reply names that commit. Start the review again on the current head;
+- one with no points, such as a bare `/revise` with the points in a comment of their own. Write the points after `/revise` in the same comment, or in the same review.
 
 **Close.** One line saying why.
 
@@ -80,4 +82,5 @@ Two send-backs are refused, each with a reply saying so, and nothing else is don
 When the revision comes back, read the delta since your last review (the compare
 link in its reply) and check that each point you sent back is addressed. Re-read
 the whole PR only if the delta changed the design. Start that review after the
-revision's reply: one begun before its push is refused (see **Send-back**).
+revision's reply or hand-back: one begun before its push is refused (see
+**Send-back**).
