@@ -37,7 +37,7 @@ A starting situation that generates work, then merges onto the main flow.
 
 - **Bugs and requests piling up** → **`/triage`**. It moves issues through triage roles and produces agent-ready issues, which **`/implement`** later picks up.
 
-    Triage is only for issues **you didn't create**: bug reports, incoming feature requests, anything that arrives raw. Tickets that `/to-tickets` produced already carry their role, so **don't triage them**. Most are `ready-for-agent`. A deliberately large one is `recipe-ticket`: it waits for you to run `/implement` on it, asking for one PR.
+    Triage is only for issues **you didn't create**: bug reports, incoming feature requests, anything that arrives raw. Tickets that `/to-tickets` produced already carry their role, so **don't triage them**. Most are `ready-for-agent`. A deliberately large one is `recipe-ticket`: it waits for you to run `/implement` on it, asking for one PR. One whose premises wait on a blocker's outcome is `needs-triage`: once that blocker closes, confirm the premises it marks and move it to `ready-for-agent`.
 
 - **Something's broken** → **`/diagnosing-bugs`**. For the hard ones: the bug that resists a first glance, the intermittent flake, the regression that crept in between two known-good states. It refuses to theorise until it has a **tight feedback loop** (one command that already goes red on _this_ bug), then fixes with a regression test. Its post-mortem hands off to **`/improve-codebase-architecture`** when the real finding is that there's no good seam to lock the bug down.
 
