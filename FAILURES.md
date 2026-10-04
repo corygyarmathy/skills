@@ -28,4 +28,4 @@ skill addresses it.
 - **Why (guess):** nothing asked a ticket to state the outside facts it rests
   on, confirmed, so a pointer to where a fact would be decided passed as
   settled, and the blocker's outcome was never re-read.
-- **Addressed by:** PR_PLACEHOLDER (each ticket states its premises).
+- **Addressed by:** #24 (each ticket states its premises).
