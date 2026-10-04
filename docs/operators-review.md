@@ -65,11 +65,12 @@ text with your own).
 
 An advisory finding enters only when you cite it, one at a time: "advisory 3:
 agreed, and cover the empty case too". A citation means the latest advisory review.
-After a revision, that is the review of the revision's delta, numbered from 1
-again: "advisory 3" is finding 3 of the delta's review. A finding from an earlier
-review, on code the revision didn't touch, is not in the latest review: quote it
-in your own words rather than cite it by number, which would name a different
-finding.
+After a revision, once the revision's own advisory review is posted, it is the
+latest; until then, a citation still means the earlier one. When it covers only
+the revision's delta (see **The second sitting**), it is numbered from 1 again:
+"advisory 3" is finding 3 of the delta's review. A finding from an earlier review,
+on code the revision didn't touch, is not in the latest review: quote it in your
+own words rather than cite it by number, which would name a different finding.
 The send-back is yours: nothing should draft it for you, an interactive session
 included.
 
@@ -92,5 +93,6 @@ revision's reply or hand-back: one begun before its push is refused (see
 
 The revision has its own advisory review, posted after its reply. Its summary
 names a range ("Advisory review of `abc1234..def5678`") rather than one head, and
-it covers the same delta you are reading. **Your own reading first** applies to
-it unchanged: open it after you have decided.
+it covers the same delta you are reading. If the branch moved after the reply, it
+covers the whole PR instead and names one head, as a first review does. **Your own
+reading first** applies to it unchanged: open it after you have decided.
