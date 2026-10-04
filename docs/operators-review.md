@@ -68,10 +68,16 @@ agreed, and cover the empty case too". A citation means the latest advisory revi
 The send-back is yours: nothing should draft it for you, an interactive session
 included.
 
+Two send-backs are refused, each with a reply saying so, and nothing else is done:
+
+- one written while a revision is in flight, after it started and before its reply or hand-back. Wait for the reply or the hand-back, then send the points again;
+- a review, or a line comment, begun on a head the PR has since left: started before a revision pushed, submitted after. The reply names the commit it was written on. Start the review again on the current head.
+
 **Close.** One line saying why.
 
 ## The second sitting
 
 When the revision comes back, read the delta since your last review (the compare
 link in its reply) and check that each point you sent back is addressed. Re-read
-the whole PR only if the delta changed the design.
+the whole PR only if the delta changed the design. Start that review after the
+revision's reply: one begun before its push is refused (see **Send-back**).
