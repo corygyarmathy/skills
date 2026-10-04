@@ -8,8 +8,8 @@ should trace back to an entry here, or to a deliberate preference; a skill due
 for an `upstream` to `owned` rewrite starts by reading its entries. Later, the
 entries become the cases an evaluation is built from.
 
-Newest first. Strike an entry through, and name the commit, once a change to a
-skill addresses it.
+Newest first. Strike an entry through, and name the PR, once a change to a skill
+addresses it.
 
 <!--
 ## YYYY-MM-DD `skill-name`
