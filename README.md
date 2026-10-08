@@ -41,7 +41,6 @@ operator reads a PR and decides it.
 | `improve-codebase-architecture` | upstream | Find deepening opportunities and grill through one             |
 | `prototype`                     | upstream | Throwaway code that answers one design question                |
 | `research`                      | upstream | Answer a question from primary sources into a cited file       |
-| `resolving-merge-conflicts`     | upstream | Resolve a conflict hunk by hunk, by intent                     |
 | `triage`                        | adapted  | Move issues through a state machine of triage roles            |
 | `wayfinder`                     | upstream | Plan work too big for one session as a map of decision tickets |
 | `wizard`                        | upstream | Generate a bash script that walks a human through manual steps |
