@@ -22,6 +22,18 @@ issue.
 - **Why (guess):** the line in the skill, or the missing one, that let it.
 -->
 
+## ~~2026-10-08 `implement`~~
+
+- **What happened:** an implementing session with a user present asked 1-3
+  questions before its first edit, and those gaps never came back as review
+  findings. A session with nobody to ask made the same choices silently, and
+  they came back as findings: the ticket caused 44% of findings there, against
+  18% with a user present (corygyarmathy/afk-agent#195).
+- **Why (guess):** nothing asked `implement` to read the ticket for gaps before
+  the first edit, or to stop on one when nobody was there to ask.
+- **Addressed by:** #36 (implement checks the ticket before the first edit, and
+  stops on a gap).
+
 ## ~~2026-10-08 `to-tickets`~~
 
 - **What happened:** across 48 pull requests on corygyarmathy/afk-agent and
