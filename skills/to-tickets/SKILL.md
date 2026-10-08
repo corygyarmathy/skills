@@ -52,7 +52,7 @@ A **waiting premise** depends on what a blocker produces, not only on its order,
 
 Confirm every other premise against its source now. One you cannot confirm becomes a question in the quiz, and stays out of the ticket until the user settles it.
 
-### 5. Name each ticket's open choices
+### 5. Name each ticket's open choices, and what its pull request can meet
 
 A ticket decides everything it does not list as an **open choice**. State each decision as the outcome or contract the change must meet (what it accepts, what it produces, what holds afterwards), not as the steps to reach it: the implementer finds the steps in the code, where a prescribed step can break a rule of the repository the ticket never read.
 
