@@ -34,7 +34,7 @@ issue.
   `path:line` but never for the point in plain words or the quoted text; and
   the brief asked where the reproduction's worktree lives, a leftover from
   before #34 made the source rerunnable from the reviewed head.
-- **Addressed by:** this branch (findings open with their point, quote rather
+- **Addressed by:** #37 (findings open with their point, quote rather
   than cite, prove prose with quoted lines, and drop the worktree).
 
 ## ~~2026-10-08 `implement`~~
