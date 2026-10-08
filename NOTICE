@@ -8,3 +8,7 @@ This is a fork, not an installation. There is no upstream to pull from and
 no drift to detect against: a change made here is the change, and an
 improvement made upstream is adopted by reading it and deciding, not by
 running a sync. The MIT notice above travels with the work either way.
+
+Upstream has been read, and what was wanted adopted, through commit
+f3fc5632f401156837ee3872f14fe33ccf1024ea (October 2026, after v1.3.1). The
+next reading starts from there. retro and pr were taken from that commit.
