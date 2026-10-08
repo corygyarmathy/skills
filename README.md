@@ -18,14 +18,15 @@ driven by [FAILURES.md](FAILURES.md).
 
 ## The main flow
 
-| Skill               | Status   | For                                                                |
-| ------------------- | -------- | ------------------------------------------------------------------ |
-| `grill-with-docs`   | upstream | Interview a plan to resolution, updating `GLOSSARY.md` and ADRs    |
-| `to-spec`           | adapted  | Synthesise the conversation into a spec on the issue tracker       |
-| `to-tickets`        | adapted  | Break a spec into tracer-bullet tickets with blocking edges        |
-| `implement`         | adapted  | Work a spec or ticket through `tdd`, then commit it for review     |
-| `reviewing-changes` | adapted  | Four-axis review of a diff: standards, spec, correctness, approach |
-| `retro`             | adapted  | Look back on a session: fix the environment, log skill failures    |
+| Skill               | Status   | For                                                                  |
+| ------------------- | -------- | -------------------------------------------------------------------- |
+| `grill-with-docs`   | upstream | Interview a plan to resolution, updating `GLOSSARY.md` and ADRs      |
+| `to-spec`           | adapted  | Synthesise the conversation into a spec on the issue tracker         |
+| `to-tickets`        | adapted  | Break a spec into tracer-bullet tickets with blocking edges          |
+| `implement`         | adapted  | Work a spec or ticket through `tdd`, then commit it for review       |
+| `pr`                | adapted  | The shape of a PR body: where to start, the change's shape, its risk |
+| `reviewing-changes` | adapted  | Four-axis review of a diff: standards, spec, correctness, approach   |
+| `retro`             | adapted  | Look back on a session: fix the environment, log skill failures      |
 
 `reviewing-changes` writes the advisory review. Beside it,
 [the operator's review](docs/operators-review.md) is for a human: how the
