@@ -22,6 +22,22 @@ issue.
 - **Why (guess):** the line in the skill, or the missing one, that let it.
 -->
 
+## ~~2026-10-08 `to-tickets`~~
+
+- **What happened:** across 48 pull requests on corygyarmathy/afk-agent and
+  corygyarmathy/dotfiles, 26 of 52 ticket shortfalls were under-decided: the
+  ticket left a choice open, and the implementer made it. 12 were wrong, often
+  a step the ticket prescribed that broke a rule of the repository. Some
+  acceptance criteria needed a deploy, so no pull request could meet them.
+  Without a user to ask, an implementer's choices came back as review findings:
+  the ticket caused 44% of findings on dotfiles
+  (corygyarmathy/afk-agent#194).
+- **Why (guess):** nothing asked a ticket to say which choices it leaves open,
+  so the rest weren't held to being decided, and nothing kept the acceptance
+  criteria to what a pull request can meet.
+- **Addressed by:** #31 (a ticket names its open choices, and asks only what a
+  pull request can meet).
+
 ## ~~2026-10-04 `to-tickets`~~
 
 - **What happened:** corygyarmathy/dotfiles#332 asked for options mapping to
