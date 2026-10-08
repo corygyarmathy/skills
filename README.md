@@ -20,7 +20,7 @@ driven by [FAILURES.md](FAILURES.md).
 
 | Skill               | Status   | For                                                                |
 | ------------------- | -------- | ------------------------------------------------------------------ |
-| `grill-with-docs`   | upstream | Interview a plan to resolution, updating `CONTEXT.md` and ADRs     |
+| `grill-with-docs`   | upstream | Interview a plan to resolution, updating `GLOSSARY.md` and ADRs    |
 | `to-spec`           | adapted  | Synthesise the conversation into a spec on the issue tracker       |
 | `to-tickets`        | adapted  | Break a spec into tracer-bullet tickets with blocking edges        |
 | `implement`         | adapted  | Work a spec or ticket through `tdd`, then commit it for review     |
@@ -36,7 +36,7 @@ operator reads a PR and decides it.
 | ------------------------------- | -------- | -------------------------------------------------------------- |
 | `tdd`                           | adapted  | The red-green loop, and what makes a test worth keeping        |
 | `diagnosing-bugs`               | adapted  | The feedback-loop-first diagnosis discipline                   |
-| `domain-modeling`               | adapted  | Build and sharpen `CONTEXT.md` and the ADR record              |
+| `domain-modeling`               | adapted  | Build and sharpen `GLOSSARY.md` and the ADR record             |
 | `codebase-design`               | upstream | Deep-module vocabulary: interface, depth, seam, adapter        |
 | `improve-codebase-architecture` | upstream | Find deepening opportunities and grill through one             |
 | `prototype`                     | upstream | Throwaway code that answers one design question                |
