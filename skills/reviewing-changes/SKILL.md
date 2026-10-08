@@ -32,8 +32,8 @@ Each finding carries one severity, and the floor cuts between them in the same p
 
 Every finding the reader gets is a decision, so each one carries the evidence its axis requires. A finding without it is dropped, never downgraded:
 
-- **Correctness**: a reproduction that ran at the reviewed head: a failing test or a command, with its output. A failure scenario written down but not run is not a finding.
-- **Spec**: the quoted spec line, plus the hunk that fails it.
+- **Correctness**: a reproduction that ran at the reviewed head: a failing test or a command, with its output. For an untested failure path, the reproduction is a command that breaks the path and shows the tests still pass. A failure scenario written down but not run is not a finding.
+- **Spec**: the quoted spec line, plus the hunk that fails it. A requirement missing from both the diff and the context diff has no hunk; the quoted line alone is its evidence.
 - **Standards**: the cited rule (file + the rule), plus the hunk that breaks it.
 - **Approach**: something pointable: the caller or dependent left un-updated, the existing code duplicated, or the simpler sketch written out. A pre-mortem that can't name a concrete cost in this repo is dropped.
 
@@ -105,18 +105,18 @@ At a `consider` floor, paste [`SMELLS.md`](SMELLS.md) in full as well (the sub-a
 
 **Spec** brief: "Report (a) requirements the spec asked for that are missing or partial; (b) behaviour in the diff that wasn't asked for (scope creep); (c) requirements that look implemented but where the implementation looks wrong. Quote the spec line for each finding. When there is a context diff, judge (a) against the diff and the context diff together: a requirement the context diff implements is not missing, and one missing from both is a finding even though no change in the diff anchors it. (b) and (c) stay anchored in the diff." Skipped when there is no spec.
 
-**Correctness** brief: "Find the ways this change produces wrong output, crashes, loses data, or breaks an existing caller: edge cases, error paths, concurrency, resource cleanup, and the invariants the surrounding code relies on. Prove each suspicion with a **reproduction** at the reviewed head. Work in a worktree of your own at that commit (the harness's isolated worktree, or `git worktree add --detach <dir> <head>`) and write one failing test or command per suspicion. Fix it until it runs; once it runs, its result stands, and a pass drops the suspicion. Leave the worktree in place and commit nothing from it. Every finding states its **failure scenario** (the inputs and state, and the wrong result they produce) and its reproduction: the worktree, the test's path and the command, and the output lines that show the failure. If nothing in this repo can be run, say so in place of findings." Folded, see step 4.
+**Correctness** brief: "Find the ways this change produces wrong output, crashes, loses data, or breaks an existing caller: edge cases, error paths, concurrency, resource cleanup, and the invariants the surrounding code relies on. Prove each suspicion with a **reproduction** at the reviewed head. Work in a worktree of your own at that commit (the harness's isolated worktree, or `git worktree add --detach <dir> <head>`) and write one test or command per suspicion. Fix it until it runs; once it runs, its result stands, and one that doesn't show the failure drops the suspicion. Leave the worktree in place and commit nothing from it. Every finding states its **failure scenario** (the inputs and state, and the wrong result they produce), and where its reproduction lives: the worktree, the test's path and the command. If nothing in this repo can be run, say so in place of findings." Folded, see step 4.
 
 **Approach** brief: "Judge the approach the change takes, not its details. Work in this order:
 
 1. **Design it twice.** Before reading the diff, read the spec and the code it touches, and sketch in a few lines how you would have done it. Then read the diff and compare. Where your sketch is simpler, that is a finding.
 2. **Blast radius.** Work out every interface, type, schema, config key, or behaviour the diff changes, and find their callers and dependents across the repo, and in the context diff when there is one. Report each one the change affects but didn't update, and existing code the change duplicates instead of reusing.
-3. **Pre-mortem.** Assume that six months from now this change caused a problem. Find the most likely one: migration, reversibility, performance at scale, operability, security, or a future change it makes harder. Report it as a finding when it names a concrete cost in this repo and clears the floor.
+3. **Pre-mortem.** Assume that six months from now this change caused a problem. Find the most likely one: migration, reversibility, performance at scale, operability, security, or a future change it makes harder. Report it as a finding when it clears the floor.
 4. **Spec pushback.** Report where the code shows the spec itself was wrong, unnecessary, or missing a case. With no spec, list as questions whether the change should exist at all, and whether a smaller change solves the same problem."
 
 ### 6. Aggregate
 
-First the **evidence check**: each finding carries its axis's evidence from _Evidence_, checked against the source it cites. The quoted line is in the spec, the rule is in the cited file, the reproduction's command and failing output are present, the Approach finding's caller or duplicate exists at the cited path or its sketch is written out. Drop every finding that fails. This is a mechanical check, not a second review: it re-judges nothing and runs no further model.
+First the **evidence check**: each finding carries its axis's evidence from _Evidence_, checked against the source it cites. The quoted line is in the spec, the rule is in the cited file, the reproduction's command and the output showing the failure are present, the Approach finding's caller or duplicate exists at the cited path or its sketch is written out. Drop every finding that fails. This is a mechanical check, not a second review: it re-judges nothing and runs no further model.
 
 Then merge **duplicates**: findings from two axes at the same location with the same cause. Keep one, under the axis whose evidence is strongest, in this order: Correctness, Spec, Standards, Approach. It takes the higher severity of the two and is tagged with the other axis, e.g. `(also Spec)`. The same line with a different cause is two findings.
 
