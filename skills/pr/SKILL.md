@@ -164,7 +164,7 @@ Choices you made where the spec was silent or out of date, including each one ma
 
 ### Not verified
 
-What you could not check, and behaviour the diff cannot show, such as what only a run on the host would.
+What you could not check, and behaviour the diff cannot show, such as what only a run on the host would. Carry over each check in the ticket's After merge.
 
 ### Merge danger
 

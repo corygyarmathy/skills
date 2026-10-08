@@ -72,10 +72,10 @@ Show counts and a one-line summary per item. Let the maintainer pick.
 
 A ticket from `/to-tickets` is already specified, so it skips the steps below when it waits on one of these:
 
-- A **waiting premise**: its Premises mark one "confirm once <blocker> closes". While any marked blocker is open, say which and leave the premise as it is. Once all have closed, read what each blocker landed and report each marked premise as held, with a permalink to its source, or broken, with what landed instead. A broken premise means the ticket needs rewriting: leave it `needs-triage` and say so.
+- A **waiting premise**: its Premises mark one "confirm once <blocker> closes". While a premise's blocker is open, say which and leave that premise as it is. Once it has closed, read what the blocker landed and report the premise as held, with a permalink to its source, or broken, with what landed instead. A broken premise means the ticket needs rewriting: leave it `needs-triage` and say so.
 - A **choice to settle**: its Open choices mark one "settle first". Put each to the maintainer as its own question, with a recommended answer.
 
-Once every marked premise has held and every marked choice is answered, recommend the edit: each premise's mark replaced by its permalink, each answered choice moved out of Open choices into the ticket as a decision, stated as the outcome the change must meet, and the ticket moved to the role it would otherwise carry, `recipe-ticket` if its What to build asks for one `/implement` as one PR, otherwise `ready-for-agent`. Wait for direction, then apply it.
+Recommend an edit for whatever this pass settled, so the next pass doesn't ask it again: each held premise's mark replaced by its permalink, and each answered choice moved out of Open choices into the ticket as a decision, stated as the outcome the change must meet. Once no mark is left, the edit also moves the ticket to the role it would otherwise carry, `recipe-ticket` if its What to build asks for one `/implement` as one PR, otherwise `ready-for-agent`. Wait for direction, then apply it.
 
 Every other issue or PR goes through these steps:
 
