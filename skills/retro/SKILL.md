@@ -14,6 +14,7 @@ The user has asked for a **retrospective**. You are suggesting improvements to t
 
 3. Look for candidates for improvement in these categories.
 
+- **Skill failures**: did a skill lead the agent somewhere bad: a step it followed that misfired, or a missing line that let it go wrong? That is a finding about the skill, not this repo, and it belongs in [`FAILURES.md`](https://github.com/corygyarmathy/skills/blob/master/FAILURES.md) in corygyarmathy/skills, the evidence every skill there is rewritten from. Name the skill, and guess at the line, or the missing one, that let it happen. _Use when_ the agent was following a skill when it went wrong.
 - **Navigation**: how easy was it for the agent to find the right files? Are there hidden dependencies between files? Would a **navigation pointer** make it easier? _Use when_ the session took a long time to find a piece of information.
 - **Automated checks**: are there automated checks that could catch errors the agent made? Linting, typing, tests, filesystem linters? Read the repo's own check command first (its `package.json`/build-tool `lint`/`check` scripts, its CI workflow), so a check that already exists but sits unwired or silently broken is the finding, not a reinvention. A repo with no **guardrail** (no pre-commit hook and no CI job running its lint/typecheck/test command) is itself a finding: an un-linted repo is a standing missed opportunity, not a neutral default. _Use when_ the agent made a mistake an automated check could have caught, or the repo has no guardrail at all.
 - **Coding standards**: should the **reviewer agent** be given a new rule to enforce? Should an existing rule be removed or clarified? Classify the violation first: a **mechanical** one (a fixed syntactic pattern, a banned API, an import shape, a file-location rule) gets a deterministic check, full stop: a custom rule in the repo's own linter, a new pre-commit hook, or a new CI job, whichever the repo's language and existing guardrail make cheapest. Default to building the check over writing the rule. Reserve `CODING_STANDARDS.md` for genuine **judgement calls** (cross-file consistency, "matches the surrounding style," anything no guardrail could ever substitute for). _Use when_ the reviewer agent failed to catch a mistake.
@@ -23,6 +24,17 @@ The user has asked for a **retrospective**. You are suggesting improvements to t
 - **Information access**: look for opportunities to increase the agent's access to information. Teeing dev server logs, readonly access to third-party services. _Use when_ a crucial piece of information was not available to the agent.
 
 4. Present these candidates to the user, in order of severity.
+
+5. File each skill failure the user confirms as an issue on corygyarmathy/skills: `gh issue create -R corygyarmathy/skills --label failure --title "<skill-name>: <what happened, in a few words>" --body-file <file>`. The body is the entry as `FAILURES.md` formats it, so it can be folded in unchanged, with a link to the session's issue or pull request where there is one:
+
+    ```markdown
+    ## YYYY-MM-DD `skill-name`
+
+    - **What happened:** what the agent did, and what it should have done.
+    - **Why (guess):** the line in the skill, or the missing one, that let it.
+    ```
+
+    Working in corygyarmathy/skills itself, add the entry to `FAILURES.md` as its newest instead.
 
 ## Reference
 
