@@ -66,7 +66,8 @@ operator reads a PR and decides it.
 These began as copies from [`mattpocock/skills`](https://github.com/mattpocock/skills)
 (MIT), taken at `c55ee46`, and are modified from there. See [NOTICE](NOTICE). It
 is a fork, not a dependency: there is no upstream sync, and no drift to detect against upstream.
-An improvement made there is adopted by reading it and deciding.
+An improvement made there is adopted by reading it and deciding. Upstream has
+been read through `f3fc563` (after v1.3.1), so the next reading diffs from there.
 
 ## Using the skills
 
