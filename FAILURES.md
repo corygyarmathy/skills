@@ -35,7 +35,7 @@ issue.
 - **Why (guess):** nothing asked a ticket to say which choices it leaves open,
   so the rest weren't held to being decided, and nothing kept the acceptance
   criteria to what a pull request can meet.
-- **Addressed by:** #31 (a ticket names its open choices, and asks only what a
+- **Addressed by:** #35 (a ticket names its open choices, and asks only what a
   pull request can meet).
 
 ## ~~2026-10-04 `to-tickets`~~
