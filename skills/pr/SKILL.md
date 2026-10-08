@@ -1,44 +1,43 @@
 ---
 name: pr
-description: "Use when writing a PR body."
+description: "The shape of a pull request body. Use when writing one, or the report that becomes one."
 metadata:
-  credits:
-    skill: show-me
-    author: Dex Horthy
-    organisation: Humanlayer
-    url: "https://github.com/humanlayer/skills/blob/main/plugins/show-me/skills/show-me/SKILL.md"
+    credits:
+        skill: show-me
+        author: Dex Horthy
+        organisation: Humanlayer
+        url: "https://github.com/humanlayer/skills/blob/main/plugins/show-me/skills/show-me/SKILL.md"
 ---
 
-Use this template for writing the PR body:
+The pull request body is for the person who reviews the work: what they need and cannot cheaply get from the spec or the diff. Use these headings, in this order, and leave out one with nothing to say:
 
 ```markdown
-## Summary
+## Start here
 
-<diagram, diff-sketch, or tree>
+## Summary
 
 ## Evidence
 
-- **Before:** <screenshot/output/failing test run>
-  **After:** <screenshot/output/passing test run>
+## Where the ticket didn't decide
 
-## Merge Danger
+## Not verified
 
-**Door:** <one-way or two-way>
+## Merge danger
 
-<optional: description>
-
-**Blast Radius:** <one-word description>
-
-<optional: potential ramifications of merge>
+## Recipe
 ```
+
+One or two lines an item, and the whole body on one screen, apart from a Summary visual. The diff already shows what changed and the checks show what passed, so the body carries neither, nor a rating of the work. Skip all preambles. Use the domain language from `GLOSSARY.md`.
 
 ## Sections
 
-Skip all preambles and keep prose brief. Use the user's domain language from `GLOSSARY.md`.
+### Start here
+
+Where to start reading the diff, as `path:line`, and one line on where the behaviour lives. Always present.
 
 ### Summary
 
-Pick the smallest view that makes the key point clear.
+The shape of the change, when the diff alone doesn't show it: a change spread across files, a new control flow, a moved responsibility. Leave it out when Start here already makes the shape plain. Pick the smallest view that makes the key point clear.
 
 - Show logic or an algorithm as pseudocode:
 
@@ -144,8 +143,8 @@ For a state or control-flow change:
 
 ```ts
 function expandSkill(command: string): string {
-  const skillName = command.slice(1);
-  return `use the ${skillName} skill`;
+    const skillName = command.slice(1);
+    return `use the ${skillName} skill`;
 }
 ```
 
@@ -157,14 +156,30 @@ You may use one of these, you may use several, it is unlikely you will use all o
 
 ### Evidence
 
-Concrete evidence that the change works. Show a before and after.
+Before and after for behaviour the checks don't show: a screenshot of a visual change, or the output of a run the checks don't make. A screenshot is the strongest evidence where the environment is set up for one and the change is visual. A test the checks already run is not evidence here.
 
-Screenshots are S-tier - when the environment is set up for it and the change is visual.
+### Where the ticket didn't decide
 
-Execution-based evidence is A-tier. Test results, console output. Show the exact test that now fails and passes, using pseudocode.
+Choices you made where the spec was silent or out of date, including each one made because nobody was there to ask, and any that bears on security.
 
-### Merge Danger
+### Not verified
 
-Describe whether it's a one-way or two-way door. You can walk back through two-way doors, but not one-way doors. A PR that is cheap to roll back is lower risk. Changes that involve destructive actions or hard-to-reverse decisions are one-way doors.
+What you could not check, and behaviour the diff cannot show, such as what only a run on the host would.
 
-The blast radius is the potential impact or scope of the changes introduced by this PR. Consider all possibilities. Examples are layout shift, breakages for consumers, mobile responsiveness, etc.
+### Merge danger
+
+```markdown
+**Door:** <one-way or two-way>
+
+<optional: why>
+
+**Blast radius:** <one word>
+
+<optional: what a merge could break>
+```
+
+A two-way door can be walked back through: a change that is cheap to roll back is lower risk. A change that destroys data, or makes a hard-to-reverse decision, is a one-way door. The blast radius is everything the change could reach if it is wrong: consumers it breaks, data it touches, layout it shifts. Consider every possibility before naming it.
+
+### Recipe
+
+Only for work that is one large, mechanical change: the command or transformation rule that makes it, and where the diff departs from it.
