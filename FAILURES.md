@@ -22,6 +22,21 @@ issue.
 - **Why (guess):** the line in the skill, or the missing one, that let it.
 -->
 
+## ~~2026-10-08 `reviewing-changes`~~
+
+- **What happened:** reviewing a skills change, a Correctness finding cited
+  three files by shorthand (`implement:19`, `pr:163`), argued its point across
+  them, offered as its reproduction `grep`s that only printed the cited lines,
+  and pointed at a worktree in another session's scratchpad. The reader had to
+  open three files to learn the point, which fit in one sentence.
+- **Why (guess):** the evidence rule demanded a run reproduction even for prose,
+  so the reviewer dressed citations up as one; the output rules asked for
+  `path:line` but never for the point in plain words or the quoted text; and
+  the brief asked where the reproduction's worktree lives, a leftover from
+  before #34 made the source rerunnable from the reviewed head.
+- **Addressed by:** #37 (findings open with their point, quote rather
+  than cite, prove prose with quoted lines, and drop the worktree).
+
 ## ~~2026-10-08 `implement`~~
 
 - **What happened:** an implementing session with a user present asked 1-3
