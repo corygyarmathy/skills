@@ -31,7 +31,7 @@ issue.
   18% with a user present (corygyarmathy/afk-agent#195).
 - **Why (guess):** nothing asked `implement` to read the ticket for gaps before
   the first edit, or to stop on one when nobody was there to ask.
-- **Addressed by:** #PR (implement checks the ticket before the first edit, and
+- **Addressed by:** #36 (implement checks the ticket before the first edit, and
   stops on a gap).
 
 ## ~~2026-10-08 `to-tickets`~~
