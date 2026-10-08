@@ -25,6 +25,7 @@ driven by [FAILURES.md](FAILURES.md).
 | `to-tickets`        | adapted  | Break a spec into tracer-bullet tickets with blocking edges        |
 | `implement`         | adapted  | Work a spec or ticket through `tdd`, then commit it for review     |
 | `reviewing-changes` | adapted  | Four-axis review of a diff: standards, spec, correctness, approach |
+| `retro`             | adapted  | Look back on a session: fix the environment, log skill failures    |
 
 `reviewing-changes` writes the advisory review. Beside it,
 [the operator's review](docs/operators-review.md) is for a human: how the

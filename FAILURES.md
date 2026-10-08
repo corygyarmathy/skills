@@ -11,6 +11,10 @@ entries become the cases an evaluation is built from.
 Newest first. Strike an entry through, and name the PR, once a change to a skill
 addresses it.
 
+From another repository, `retro` files an entry as an issue labelled `failure`
+rather than editing this file. Fold each one in here unchanged, and close the
+issue.
+
 <!--
 ## YYYY-MM-DD `skill-name`
 
